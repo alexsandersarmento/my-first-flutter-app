@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
  void _checkLogoutResult((bool,String?) result) {
     if (result.$1) {
-      GoRouter.of(context).pushReplacement('/login');
+      GoRouter.of(context).pushReplacement('/onboard');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

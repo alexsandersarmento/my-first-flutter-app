@@ -5,14 +5,14 @@ import 'package:my_first_flutter_app/http/http_client.dart';
 import 'package:my_first_flutter_app/repositories/auth_repository.dart';
 import 'package:my_first_flutter_app/stores/auth_store.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -39,42 +39,6 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: AppColors.black,
         elevation: 0,
         leading: const BackButton(color: Colors.white),
-      ),
-      bottomNavigationBar: SizedBox(
-        height: 120,
-        child: Container(
-          color: AppColors.black ,
-          child: InkWell(
-            // onTap: () {
-            //   GoRouter.of(context).push('/signup');
-            // },
-            onTap: () {
-              print('Sign Up');
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Don\'t have an account? ',
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w100,
-                    fontSize: 14,
-                  ),
-                ),
-                Text(
-                  'Sign Up',
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
       ),
       body: Center(
         child: Container(

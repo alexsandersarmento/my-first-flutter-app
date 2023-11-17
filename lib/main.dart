@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide Router;
 import 'package:my_first_flutter_app/core/router/router.dart';
+import 'package:my_first_flutter_app/core/theme/theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      theme: theme,
       routerConfig: Router.instance.router,
     );
   }
