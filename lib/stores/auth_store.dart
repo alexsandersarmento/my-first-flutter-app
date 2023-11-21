@@ -9,15 +9,27 @@ class AuthStore extends ChangeNotifier {
 
   AuthStore({required this.repository});
 
-  Future<(bool,String?)> loginUser(String email, String password) async {
+  Future loginUser(String email, String password, VoidCallback onSucess, Function(String) onError) async {
     try {
       _setLoading(true);
       await repository.loginUser(email, password);
       _setLoading(false);
-      return(true,null);
+      onSucess();
     } catch (error) {
       _setLoading(false);
-      return (false,error.toString());
+      onError(error.toString());
+    }
+  }
+
+  Future signUpUser(String email, String password, String confirmPassword, VoidCallback onSucess, Function(String) onError) async {
+    try {
+      _setLoading(true);
+      await repository.signUpUser(email, password, confirmPassword);
+      _setLoading(false);
+      onSucess();
+    } catch (error) {
+      _setLoading(false);
+      onError(error.toString());
     }
   }
 
@@ -30,6 +42,42 @@ class AuthStore extends ChangeNotifier {
     } catch (error) {
       _setLoading(false);
       return (false,error.toString());
+    }
+  }
+
+  Future forgotPassword(String email, VoidCallback onSucess, Function(String) onError) async {
+    try {
+      _setLoading(true);
+      await repository.forgotPassword(email);
+      _setLoading(false);
+      onSucess();
+    } catch (error) {
+      _setLoading(false);
+      onError(error.toString());
+    }
+  }
+
+  Future verifyCode(String code, VoidCallback onSucess, Function(String) onError) async {
+    try {
+      _setLoading(true);
+      await repository.verifyCode(code);
+      _setLoading(false);
+      onSucess();
+    } catch (error) {
+      _setLoading(false);
+      onError(error.toString());
+    }
+  }
+
+  Future resetPassword(String password, String confirmPassword, VoidCallback onSucess, Function(String) onError) async {
+    try {
+      _setLoading(true);
+      await repository.resetPassword(password, confirmPassword);
+      _setLoading(false);
+      onSucess();
+    } catch (error) {
+      _setLoading(false);
+      onError(error.toString());
     }
   }
 

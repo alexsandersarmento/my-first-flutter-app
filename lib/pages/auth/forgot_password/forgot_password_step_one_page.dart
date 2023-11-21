@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_flutter_app/core/theme/app_colors.dart';
-import 'package:my_first_flutter_app/components/SignUp/sign_up_form.dart';
+import 'package:my_first_flutter_app/components/ForgotPassword/forgot_password_step_one_form.dart';
 
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+class ForgotPasswordStepOnePage extends StatelessWidget {
+  const ForgotPasswordStepOnePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,31 +13,32 @@ class SignUpPage extends StatelessWidget {
         elevation: 0,
         leading: const BackButton(color: Colors.white),
       ),
+      backgroundColor: AppColors.black,
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(20),
-          color: AppColors.black,
           child: Column(
             children: [
               const SizedBox(height: 20),
               Text(
-                'Create Account,',
+                'Reset Password',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 28,
                 ),
               ),
+              const SizedBox(height: 20),
               Text(
-                'to get started now!',
+                'Enter your email address below to reset your password.',
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.w100,
-                  fontSize: 28,
+                  fontSize: 16,
                 ),
               ),
               const SizedBox(height: 40),
-              const SignUpForm(),
+              const ForgotPasswordStepOneForm(),
             ],
           ),
         ),

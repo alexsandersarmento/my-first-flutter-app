@@ -8,6 +8,9 @@ import 'package:my_first_flutter_app/pages/products_page.dart';
 import 'package:my_first_flutter_app/pages/profile_page.dart';
 import 'package:my_first_flutter_app/repositories/shared_repository.dart';
 import 'package:my_first_flutter_app/screens/home_screen.dart';
+import 'package:my_first_flutter_app/pages/auth/forgot_password/forgot_password_step_one_page.dart';
+import 'package:my_first_flutter_app/pages/auth/forgot_password/forgot_password_step_two_page.dart';
+import 'package:my_first_flutter_app/pages/auth/forgot_password/forgot_password_step_three_page.dart';
 
 class Router {
   static Router? _instance;
@@ -44,7 +47,6 @@ class Router {
     routes: <RouteBase>[
       GoRoute(
         path: '/',
-        builder: (BuildContext context, GoRouterState state) => const OnboardPage(),
         pageBuilder: (context, state) => buildPageWithDefaultTransition(
           context: context,
           state: state,
@@ -68,11 +70,35 @@ class Router {
             )
           ),
           GoRoute(
-            path: 'signup',
+            path: 'sign-up',
             pageBuilder: (context, state) => buildPageWithDefaultTransition(
               context: context,
               state: state,
               child: const SignUpPage(),
+            )
+          ),
+          GoRoute(
+            path: 'forgot-password-step-one',
+            pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              context: context,
+              state: state,
+              child: const ForgotPasswordStepOnePage(),
+            )
+          ),
+          GoRoute(
+            path: 'forgot-password-step-two/:email',
+            pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              context: context,
+              state: state,
+              child: ForgotPasswordStepTwoPage(email: state.pathParameters['email'] ?? ''),
+            )
+          ),
+          GoRoute(
+            path: 'forgot-password-step-three',
+            pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              context: context,
+              state: state,
+              child: const ForgotPasswordStepThreePage(),
             )
           ),
           GoRoute(

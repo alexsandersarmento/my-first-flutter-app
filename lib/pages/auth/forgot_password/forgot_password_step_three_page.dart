@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_flutter_app/core/theme/app_colors.dart';
-import 'package:my_first_flutter_app/components/SignUp/sign_up_form.dart';
+import 'package:my_first_flutter_app/components/ForgotPassword/forgot_password_step_three_form.dart';
 
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+class ForgotPasswordStepThreePage extends StatelessWidget {
+  const ForgotPasswordStepThreePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,23 +21,15 @@ class SignUpPage extends StatelessWidget {
             children: [
               const SizedBox(height: 20),
               Text(
-                'Create Account,',
+                'Create a new password',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 28,
                 ),
               ),
-              Text(
-                'to get started now!',
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w100,
-                  fontSize: 28,
-                ),
-              ),
               const SizedBox(height: 40),
-              const SignUpForm(),
+              const ForgotPasswordStepThreeForm(),
             ],
           ),
         ),

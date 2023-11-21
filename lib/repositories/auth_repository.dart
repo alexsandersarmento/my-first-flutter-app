@@ -1,9 +1,13 @@
-  import 'package:my_first_flutter_app/http/http_client.dart';
-  import 'package:my_first_flutter_app/models/user_model.dart';
-  import 'package:my_first_flutter_app/repositories/shared_repository.dart';
+import 'package:my_first_flutter_app/http/http_client.dart';
+import 'package:my_first_flutter_app/models/user_model.dart';
+import 'package:my_first_flutter_app/repositories/shared_repository.dart';
 
   abstract class IAuthRepository {
     Future<UserModel> loginUser(String email, String password);
+    Future<UserModel> signUpUser(String email, String password, String confirmPassword);
+    Future<UserModel> forgotPassword(String email);
+    Future<bool> verifyCode(String code);
+    Future<UserModel> resetPassword(String password, String confirmPassword);
     Future<void> logoutUser();
   }
 
@@ -49,6 +53,79 @@
       // } else {
       //   throw Exception('Failed to login user');
       // }
+    }
+
+    @override
+    Future<UserModel> signUpUser(String email, String password, String confirmPassword) async {
+      bool isPasswordValid = password == confirmPassword;
+
+      if(email == 'alexsander.br18@gmail.com' && isPasswordValid) {
+        final user = UserModel(
+          id: 1,
+          fullName: 'Alexsander',
+          email: 'alexsander.br18@gmail.com',
+          token: TokenModel(
+            access: 'access',
+            refresh: 'refresh',
+            type: 'bearer'
+          ),
+        );
+        repository.setString('token', user.token.access);
+        return Future.delayed(const Duration(seconds: 2), () => user);
+      } else {
+        throw Exception('Failed to create user');
+      }
+    }
+
+    @override
+    Future<UserModel> forgotPassword(String email) async {
+      if(email == 'alexsander.br18@gmail.com') {
+        final user = UserModel(
+          id: 1,
+          fullName: 'Alexsander',
+          email: 'alexsander.br18@gmail.com',
+          token: TokenModel(
+            access: 'access',
+            refresh: 'refresh',
+            type: 'bearer'
+          ),
+        );
+        repository.setString('token', user.token.access);
+        return Future.delayed(const Duration(seconds: 2), () => user);
+      } else {
+        throw Exception('Failed to identify user');
+      }
+    }
+
+    @override
+    Future<bool> verifyCode(String code) async {
+      if(code == '1234') {
+        return Future.delayed(const Duration(seconds: 2), () => true);
+      } else {
+        throw Exception('Failed to verify code');
+      }
+    }
+
+    @override
+    Future<UserModel> resetPassword(String password, String confirmPassword) async {
+      bool isPasswordValid = password == confirmPassword;
+
+      if(isPasswordValid) {
+        final user = UserModel(
+          id: 1,
+          fullName: 'Alexsander',
+          email: 'alexsander.br18@gmail.com',
+          token: TokenModel(
+            access: 'access',
+            refresh: 'refresh',
+            type: 'bearer'
+          ),
+        );
+        repository.setString('token', user.token.access);
+        return Future.delayed(const Duration(seconds: 2), () => user);
+      } else {
+        throw Exception('Failed to reset password');
+      }
     }
 
     @override

@@ -43,7 +43,7 @@ class OnboardPage extends StatelessWidget {
               const SizedBox(height: 20),
                ElevatedButton(
                 onPressed: () {
-                  GoRouter.of(context).push('/signup');
+                  GoRouter.of(context).push('/sign-up');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.black,
