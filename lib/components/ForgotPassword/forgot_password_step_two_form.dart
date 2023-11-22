@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_first_flutter_app/core/theme/app_colors.dart';
 import 'package:my_first_flutter_app/components/animated_opacity_text_button.dart';
-import 'package:my_first_flutter_app/http/http_client.dart';
+import 'package:my_first_flutter_app/locator.dart';
 import 'package:my_first_flutter_app/stores/auth_store.dart';
 import 'package:pinput/pinput.dart';
-
-import '../../repositories/auth_repository.dart';
 
 class ForgotPasswordStepTwoForm extends StatefulWidget {
   const ForgotPasswordStepTwoForm({Key? key}) : super(key: key);
@@ -19,7 +17,7 @@ class _ForgotPasswordStepTwoFormState extends State<ForgotPasswordStepTwoForm> {
   final TextEditingController pinController = TextEditingController();
   late bool isCodeInvalid = false;
 
-  final authStore = AuthStore(repository: AuthRepository(client: HttpClient()));
+  final authStore = locator<AuthStore>();
 
   final defaultPinTheme = PinTheme(
     width: 56,

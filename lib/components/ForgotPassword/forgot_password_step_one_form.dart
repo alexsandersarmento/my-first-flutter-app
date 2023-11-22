@@ -3,11 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:my_first_flutter_app/core/theme/app_colors.dart';
 import 'package:my_first_flutter_app/components/custom_text_form_field.dart';
 import 'package:my_first_flutter_app/components/animated_opacity_text_button.dart';
-import 'package:my_first_flutter_app/http/http_client.dart';
+import 'package:my_first_flutter_app/locator.dart';
 import 'package:my_first_flutter_app/stores/auth_store.dart';
 import 'package:my_first_flutter_app/components/error_dialog.dart';
-
-import '../../repositories/auth_repository.dart';
 
 class ForgotPasswordStepOneForm extends StatefulWidget {
   const ForgotPasswordStepOneForm({Key? key}) : super(key: key);
@@ -20,14 +18,13 @@ class _ForgotPasswordStepOneFormState extends State<ForgotPasswordStepOneForm> {
   final TextEditingController _emailController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  final authStore = AuthStore(repository: AuthRepository(client: HttpClient()));
+  final authStore = locator<AuthStore>();
 
   bool _checkFormValidation() {
     return _formKey.currentState!.validate();
   }
 
   void _onForgotPasswordSuccess() {
-    // '/product-details/${item.id}',
     GoRouter.of(context).push('/forgot-password-step-two/${_emailController.text}');
   }
 

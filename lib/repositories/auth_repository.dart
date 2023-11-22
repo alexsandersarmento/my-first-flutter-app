@@ -1,4 +1,5 @@
 import 'package:my_first_flutter_app/http/http_client.dart';
+import 'package:my_first_flutter_app/locator.dart';
 import 'package:my_first_flutter_app/models/user_model.dart';
 import 'package:my_first_flutter_app/repositories/shared_repository.dart';
 
@@ -17,7 +18,7 @@ import 'package:my_first_flutter_app/repositories/shared_repository.dart';
 
     AuthRepository({required this.client});
 
-    final ISharedPreferencesRepository repository = SharedPreferencesRepository();
+    final sharedPreferencesRepository = locator<SharedPreferencesRepository>();
 
     @override
     Future<UserModel> loginUser(String email, String password) async {
@@ -37,7 +38,7 @@ import 'package:my_first_flutter_app/repositories/shared_repository.dart';
             type: 'bearer'
           ),
         );
-        repository.setString('token', user.token.access);
+        sharedPreferencesRepository.setString('token', user.token.access);
         return Future.delayed(const Duration(seconds: 2), () => user);
       } else {
         throw Exception('Failed to login user');
@@ -70,7 +71,7 @@ import 'package:my_first_flutter_app/repositories/shared_repository.dart';
             type: 'bearer'
           ),
         );
-        repository.setString('token', user.token.access);
+        sharedPreferencesRepository.setString('token', user.token.access);
         return Future.delayed(const Duration(seconds: 2), () => user);
       } else {
         throw Exception('Failed to create user');
@@ -90,7 +91,7 @@ import 'package:my_first_flutter_app/repositories/shared_repository.dart';
             type: 'bearer'
           ),
         );
-        repository.setString('token', user.token.access);
+        sharedPreferencesRepository.setString('token', user.token.access);
         return Future.delayed(const Duration(seconds: 2), () => user);
       } else {
         throw Exception('Failed to identify user');
@@ -121,7 +122,7 @@ import 'package:my_first_flutter_app/repositories/shared_repository.dart';
             type: 'bearer'
           ),
         );
-        repository.setString('token', user.token.access);
+        sharedPreferencesRepository.setString('token', user.token.access);
         return Future.delayed(const Duration(seconds: 2), () => user);
       } else {
         throw Exception('Failed to reset password');
@@ -130,6 +131,6 @@ import 'package:my_first_flutter_app/repositories/shared_repository.dart';
 
     @override
     Future<void> logoutUser() async {
-      await repository.remove('token');
+      await sharedPreferencesRepository.remove('token');
     }
   }

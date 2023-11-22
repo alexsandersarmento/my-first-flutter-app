@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_first_flutter_app/locator.dart';
 import 'package:my_first_flutter_app/pages/auth/onboard_page.dart';
 import 'package:my_first_flutter_app/pages/auth/login_page.dart';
 import 'package:my_first_flutter_app/pages/auth/signup_page.dart';
@@ -19,14 +20,17 @@ class Router {
     return _instance!;
   }
   
-  final ISharedPreferencesRepository repository = SharedPreferencesRepository();
+  final sharedPreferencesRepository = locator<SharedPreferencesRepository>();
+  late GoRouter _router;
 
-  Router._();
+  Router._() {
+    _router = _buildRouter();
+  }
 
-  GoRouter get router => _router();
+  GoRouter get router => _router;
 
   Future<String?> _redirectIfTokenIsNull() async {
-    final token = await repository.getString('token');
+    final token = await sharedPreferencesRepository.getString('token');
     return token == null ? '/onboard' : null;
   }
 
@@ -43,7 +47,7 @@ class Router {
     );
   }
 
-  GoRouter _router() => GoRouter(
+  GoRouter _buildRouter() => GoRouter(
     routes: <RouteBase>[
       GoRoute(
         path: '/',
