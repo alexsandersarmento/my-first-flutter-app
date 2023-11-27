@@ -25,7 +25,7 @@ class _ForgotPasswordStepTwoFormState extends State<ForgotPasswordStepTwoForm> {
     textStyle: const TextStyle(
       color: Colors.white,
       fontSize: 24,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w500,
     ),
     decoration: BoxDecoration(
       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -88,7 +88,7 @@ class _ForgotPasswordStepTwoFormState extends State<ForgotPasswordStepTwoForm> {
                 'Resend',
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w500,
                   fontSize: 16,
                   decoration: TextDecoration.underline,
                 ),

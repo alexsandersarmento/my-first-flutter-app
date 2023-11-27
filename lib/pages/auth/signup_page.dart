@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_flutter_app/core/theme/app_colors.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_first_flutter_app/components/SignUp/sign_up_form.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -9,29 +9,33 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.black,
         elevation: 0,
-        leading: const BackButton(color: Colors.white),
+        leading: IconButton(
+          onPressed: () {
+            GoRouter.of(context).go('/home');
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Theme.of(context).iconTheme.color,
+          ),
+        ),
       ),
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(20),
-          color: AppColors.black,
           child: Column(
             children: [
               const SizedBox(height: 20),
               Text(
                 'Create Account,',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  fontWeight: FontWeight.w500,
                   fontSize: 28,
                 ),
               ),
               Text(
                 'to get started now!',
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: Colors.white,
                   fontWeight: FontWeight.w100,
                   fontSize: 28,
                 ),

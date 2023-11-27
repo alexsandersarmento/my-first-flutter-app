@@ -26,7 +26,7 @@ class ForgotPasswordStepTwoPage extends StatelessWidget {
                 'Enter the code sent to',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w500,
                   fontSize: 28,
                 ),
               ),

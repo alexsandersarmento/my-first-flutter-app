@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_first_flutter_app/components/error_dialog.dart';
-import 'package:my_first_flutter_app/core/theme/app_colors.dart';
 import 'package:my_first_flutter_app/locator.dart';
 import 'package:my_first_flutter_app/stores/auth_store.dart';
 import 'package:my_first_flutter_app/components/custom_text_form_field.dart';
@@ -80,7 +79,7 @@ class _SignUpFormState extends State<SignUpForm> {
               },
               icon: Icon(
                 _isPasswordVisible  ? Icons.visibility : Icons.visibility_off,
-              color: Colors.white),
+              color: Theme.of(context).iconTheme.color),
             ),
           ),
           const SizedBox(height: 20),
@@ -103,7 +102,7 @@ class _SignUpFormState extends State<SignUpForm> {
               },
               icon: Icon(
                 _isPasswordVisible  ? Icons.visibility : Icons.visibility_off,
-              color: Colors.white),
+              color: Theme.of(context).iconTheme.color),
             ),
           ),
           const SizedBox(height: 20),
@@ -114,12 +113,7 @@ class _SignUpFormState extends State<SignUpForm> {
               listenable: authStore,
               builder: (BuildContext context, Widget? child) {
                 return ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
+                  style: Theme.of(context).elevatedButtonTheme.style,
                   onPressed: () async {
                     final isFormValid = _checkFormValidation();
                     if (!isFormValid) {
@@ -137,11 +131,19 @@ class _SignUpFormState extends State<SignUpForm> {
                           
                     return authStore.signUpUser(email, password, confirmPassword, _onSignUpSuccess, _onSignUpError);
                   },
-                  child: authStore.isLoading ? const SizedBox(
+                  child: authStore.isLoading ? SizedBox(
                     width: 20,
                     height: 20,
-                    child: CircularProgressIndicator(color: AppColors.black)
-                  ) : const Text('Sign Up', style: TextStyle(color: AppColors.black)),
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).textTheme.bodySmall?.backgroundColor
+                    ),
+                  ) : const Text(
+                    'Sign Up',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 );
               },
             ),

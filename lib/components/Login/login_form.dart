@@ -1,6 +1,6 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_first_flutter_app/core/theme/app_colors.dart';
 import 'package:my_first_flutter_app/components/custom_text_form_field.dart';
 import 'package:my_first_flutter_app/components/error_dialog.dart';
 import 'package:my_first_flutter_app/components/animated_opacity_text_button.dart';
@@ -90,13 +90,15 @@ class _LoginFormState extends State<LoginForm> {
               onTap: () {
                 GoRouter.of(context).push('/forgot-password-step-one');
               },
-              child: Text(
-                'Forgot password?',
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w100,
-                  fontSize: 14,
-                  decoration: TextDecoration.underline,
+              child: ThemeSwitcher.withTheme(
+                builder: (_, __, theme) => Text(
+                  'Forgot password?',
+                  style: TextStyle(
+                    color: theme.textTheme.bodySmall?.color,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
             ),
@@ -109,12 +111,7 @@ class _LoginFormState extends State<LoginForm> {
               listenable: authStore,
               builder: (BuildContext context, Widget? child) {
                 return ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
+                  style: Theme.of(context).elevatedButtonTheme.style,
                   onPressed: () async {
                     final isFormValid = _checkFormValidation();
                     if (!isFormValid) {
@@ -125,17 +122,26 @@ class _LoginFormState extends State<LoginForm> {
                       );
                       return;
                     }
-
+                
                     final email = _emailController.text;
                     final password = _passwordController.text;
                           
                     return authStore.loginUser(email, password, _onLoginSuccess, _onLoginError);
                   },
-                  child: authStore.isLoading ? const SizedBox(
+                  child: authStore.isLoading ? SizedBox(
                     width: 20,
                     height: 20,
-                    child: CircularProgressIndicator(color: AppColors.black)
-                  ) : const Text('Login', style: TextStyle(color: AppColors.black)),
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).textTheme.bodySmall?.backgroundColor,
+                    ),
+                  ) : Text(
+                    'Login',
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.bodySmall?.backgroundColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                  ),
                 );
               },
             ),

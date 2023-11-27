@@ -97,7 +97,7 @@ class _ProductsPageState extends State<ProductsPage> {
                                 'R\$ ${item.price}',
                                 style: const TextStyle(
                                   fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ],

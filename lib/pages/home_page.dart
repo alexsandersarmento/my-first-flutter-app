@@ -1,55 +1,106 @@
+
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:my_first_flutter_app/http/http_client.dart';
-import 'package:my_first_flutter_app/repositories/auth_repository.dart';
-import 'package:my_first_flutter_app/stores/auth_store.dart';
+import 'package:my_first_flutter_app/components/timeline.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
- void _checkLogoutResult((bool,String?) result) {
-    if (result.$1) {
-      GoRouter.of(context).pushReplacement('/onboard');
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(result.$2 ?? 'Failed to login user'),
-        ),
-      );
-    }
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    )..repeat();
   }
 
   @override
   Widget build(BuildContext context) {
-    final authStore = AuthStore(repository: AuthRepository(client: HttpClient()));
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Welcome to Flutter',
+        toolbarHeight: 80,
+        leadingWidth: double.infinity,
+        leading: SizedBox(
+          width: double.infinity,
+          height: 100,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20, bottom: 10, right: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(
+                          'https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg'),
+                    ),
+                    const SizedBox(width: 20),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 30,
+                          child: Row(
+                            children: [
+                              Text(
+                                'Hello, John Doe',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context).textTheme.bodySmall?.color,
+                                ),
+                              ),
+                              IconButton(
+                                splashRadius: 15,
+                                padding: const EdgeInsets.all(0),
+                                onPressed: () {
+                                  print('Edit profile');
+                                },
+                                icon: const Icon(Icons.expand_more),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Text(
+                          'Welcome to your timeline',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Theme.of(context).textTheme.bodySmall?.color,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                IconButton(
+                  onPressed: () {
+                    print('Settings');
+                  },
+                  icon: Icon(Icons.settings, color: Theme.of(context).iconTheme.color),
+                ),
+              ],
             ),
-            ElevatedButton(
-              onPressed: () async {
-                final result = await authStore.logoutUser();
-                _checkLogoutResult(result);
-              },
-              child: const Text('Logout')
-            ),
-            const SizedBox(height: 20),
-          ],
+          ),
         ),
       ),
+      body: const Timeline(),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }

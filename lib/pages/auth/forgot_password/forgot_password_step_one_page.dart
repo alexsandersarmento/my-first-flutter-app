@@ -24,7 +24,7 @@ class ForgotPasswordStepOnePage extends StatelessWidget {
                 'Reset Password',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w500,
                   fontSize: 28,
                 ),
               ),

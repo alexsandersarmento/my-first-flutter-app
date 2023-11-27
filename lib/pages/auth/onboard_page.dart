@@ -10,7 +10,6 @@ class OnboardPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Container(
-          color: AppColors.black,
           padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -18,49 +17,35 @@ class OnboardPage extends StatelessWidget {
               SizedBox(
                 width: 200,
                 height: 200,
-                child: Image.asset('assets/images/logo.png')
+                child: Theme.of(context).brightness == Brightness.light
+                    ? Image.asset('assets/images/logo.png')
+                    : Image.asset('assets/images/logo_dark.png'),
               ),
               const SizedBox(height: 60),
               ElevatedButton(
                 onPressed: () {
                   GoRouter.of(context).push('/login');
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  minimumSize: const Size(double.infinity, 44),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: const Text(
+                style: Theme.of(context).elevatedButtonTheme.style,
+                child: Text(
                   'Login',
                   style: TextStyle(
-                    color: AppColors.black,
-                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).textTheme.bodySmall?.backgroundColor,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
               const SizedBox(height: 20),
-               ElevatedButton(
+               OutlinedButton(
                 onPressed: () {
                   GoRouter.of(context).push('/sign-up');
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.black,
-                  side: const BorderSide(
-                    color: Colors.white,
-                    width: 0.5,
-                  ),
-                  minimumSize: const Size(double.infinity, 44),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ), 
-                child: const Text(
-                  'Sign Up',
+                style: Theme.of(context).outlinedButtonTheme.style,
+                child: Text(
+                  'Sign up',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).textTheme.bodySmall?.color,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),

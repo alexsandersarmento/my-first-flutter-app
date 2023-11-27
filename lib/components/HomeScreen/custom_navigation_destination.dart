@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomNavigationDestination extends StatefulWidget {
   final Widget icon;
-  final Widget label;
+  final String label;
   final Color color;
   final Color activeColor;
   final bool selected;
@@ -45,17 +45,12 @@ class _CustomNavigationDestinationState extends State<CustomNavigationDestinatio
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            IconTheme.merge(
-              data: IconThemeData(
-                color: widget.selected ? widget.activeColor : widget.color,
-              ),
-              child: widget.icon,
-            ),
-            DefaultTextStyle.merge(
+            widget.icon,
+            Text(
+              widget.label,
               style: TextStyle(
-                color: widget.selected ? widget.activeColor : widget.color,
+                color: widget.selected ? Theme.of(context).textTheme.bodySmall?.color : widget.color,
               ),
-              child: widget.label,
             ),
           ],
         ),

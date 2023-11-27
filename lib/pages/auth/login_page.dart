@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_first_flutter_app/core/theme/app_colors.dart';
 import 'package:my_first_flutter_app/components/Login/login_form.dart';
 import 'package:my_first_flutter_app/components/animated_opacity_text_button.dart';
 
@@ -16,44 +15,46 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.black,
         elevation: 0,
-        leading: const BackButton(color: Colors.white),
-      ),
-      bottomNavigationBar: SizedBox(
-        height: 120,
-        child: Container(
-          color: AppColors.black ,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Don\'t have an account? ',
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w100,
-                  fontSize: 14,
-                ),
-              ),
-              AnimatedOpacityTextButton(
-                onTap: () {
-                  GoRouter.of(context).push('/sign-up');
-                },
-                child: Text(
-                  'Sign Up',
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-              ),
-            ],
+        leading: IconButton(
+          onPressed: () {
+            GoRouter.of(context).go('/home');
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Theme.of(context).iconTheme.color,
           ),
         ),
       ),
-      backgroundColor: AppColors.black,
+      bottomNavigationBar: SizedBox(
+        height: 120,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Don\'t have an account? ',
+              style: TextStyle(
+                color: Theme.of(context).textTheme.bodySmall?.color,
+                fontSize: 14,
+              ),
+            ),
+            AnimatedOpacityTextButton(
+              onTap: () {
+                GoRouter.of(context).push('/sign-up');
+              },
+              child: Text(
+                'Sign Up',
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.bodySmall?.color,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(20),
@@ -62,16 +63,16 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 20),
               Text(
                 'Welcome,',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.bodySmall?.color,
+                  fontWeight: FontWeight.w500,
                   fontSize: 28,
                 ),
               ),
               Text(
                 'Glad to see you!',
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.bodySmall?.color,
                   fontWeight: FontWeight.w100,
                   fontSize: 28,
                 ),

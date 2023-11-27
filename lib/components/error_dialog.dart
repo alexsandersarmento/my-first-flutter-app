@@ -46,7 +46,7 @@ class ErrorDialog extends StatelessWidget {
               title,
               style: const TextStyle(
                 color: Colors.red,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w500,
                 fontSize: 18.0,
               ),
             ),
@@ -68,7 +68,7 @@ class ErrorDialog extends StatelessWidget {
                 "Fechar",
                 style: TextStyle(
                   fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w500,
                   color: Colors.blue,
                 ),
               ),

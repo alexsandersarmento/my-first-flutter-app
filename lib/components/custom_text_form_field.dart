@@ -24,18 +24,18 @@ class CustomTextFormField extends StatelessWidget {
       validator: validator,
       keyboardType: keyboardType,
       controller: controller,
-      style: const TextStyle(color: Colors.white),
+      style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color),
       obscureText: obscureText ?? false,
       decoration: InputDecoration(
         labelText: labelText,
-        labelStyle: const TextStyle(color: Colors.white),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white, width: 1),
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+        labelStyle: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(context).textTheme.bodySmall?.color ?? Colors.white, width: 1),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
-        enabledBorder: const  OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white, width: 1),
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(context).textTheme.bodySmall?.color ?? Colors.white, width: 1),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
         focusedErrorBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.red, width: 1),
