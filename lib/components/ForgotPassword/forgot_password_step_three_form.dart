@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_first_flutter_app/components/common/button.dart';
 import 'package:my_first_flutter_app/components/error_dialog.dart';
-import 'package:my_first_flutter_app/core/theme/app_colors.dart';
 import 'package:my_first_flutter_app/locator.dart';
 import 'package:my_first_flutter_app/stores/auth_store.dart';
 import 'package:my_first_flutter_app/components/custom_text_form_field.dart';
@@ -68,7 +68,7 @@ class _ForgotPasswordStepThreeFormState extends State<ForgotPasswordStepThreeFor
               },
               icon: Icon(
                 _isPasswordVisible  ? Icons.visibility : Icons.visibility_off,
-              color: Colors.white),
+              color: Theme.of(context).iconTheme.color),
             ),
           ),
           const SizedBox(height: 20),
@@ -91,7 +91,7 @@ class _ForgotPasswordStepThreeFormState extends State<ForgotPasswordStepThreeFor
               },
               icon: Icon(
                 _isPasswordVisible  ? Icons.visibility : Icons.visibility_off,
-              color: Colors.white),
+              color: Theme.of(context).iconTheme.color),
             ),
           ),
           const SizedBox(height: 20),
@@ -101,13 +101,7 @@ class _ForgotPasswordStepThreeFormState extends State<ForgotPasswordStepThreeFor
             child: ListenableBuilder(
               listenable: authStore,
               builder: (BuildContext context, Widget? child) {
-                return ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
+                return Button(
                   onPressed: () async {
                     final isFormValid = _checkFormValidation();
                     if (!isFormValid) {
@@ -124,11 +118,9 @@ class _ForgotPasswordStepThreeFormState extends State<ForgotPasswordStepThreeFor
 
                     return authStore.resetPassword(password, confirmPassword, _onResetPasswordSuccess, _onResetPasswordError);  
                   },
-                  child: authStore.isLoading ? const SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(color: AppColors.black)
-                  ) : const Text('Reset password', style: TextStyle(color: AppColors.black)),
+                  text: 'Reset password',
+                  isDisabled: authStore.isLoading,
+                  isLoading: authStore.isLoading,
                 );
               },
             ),

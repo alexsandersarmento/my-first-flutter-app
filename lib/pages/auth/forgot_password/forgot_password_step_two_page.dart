@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_flutter_app/core/theme/app_colors.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_first_flutter_app/components/ForgotPassword/forgot_password_step_two_form.dart';
 
 class ForgotPasswordStepTwoPage extends StatelessWidget {
@@ -11,11 +11,17 @@ class ForgotPasswordStepTwoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.black,
         elevation: 0,
-        leading: const BackButton(color: Colors.white),
+        leading: IconButton(
+          onPressed: () {
+            GoRouter.of(context).pop();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Theme.of(context).iconTheme.color,
+          ),
+        ),
       ),
-      backgroundColor: AppColors.black,
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(20),
@@ -24,20 +30,12 @@ class ForgotPasswordStepTwoPage extends StatelessWidget {
               const SizedBox(height: 20),
               Text(
                 'Enter the code sent to',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 28,
-                ),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 10),
               Text(
                 email!,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w100,
-                  fontSize: 20,
-                ),
+                style: Theme.of(context).textTheme.labelMedium,
               ),
               const SizedBox(height: 40),
               const ForgotPasswordStepTwoForm(),

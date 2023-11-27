@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_first_flutter_app/core/theme/app_colors.dart';
+import 'package:my_first_flutter_app/components/common/button.dart';
+
 
 class OnboardPage extends StatelessWidget {
   const OnboardPage({super.key});
@@ -22,32 +23,19 @@ class OnboardPage extends StatelessWidget {
                     : Image.asset('assets/images/logo_dark.png'),
               ),
               const SizedBox(height: 60),
-              ElevatedButton(
+              Button(
                 onPressed: () {
                   GoRouter.of(context).push('/login');
                 },
-                style: Theme.of(context).elevatedButtonTheme.style,
-                child: Text(
-                  'Login',
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.bodySmall?.backgroundColor,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                text: 'Login',
               ),
               const SizedBox(height: 20),
-               OutlinedButton(
+              Button(
                 onPressed: () {
                   GoRouter.of(context).push('/sign-up');
                 },
-                style: Theme.of(context).outlinedButtonTheme.style,
-                child: Text(
-                  'Sign up',
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.bodySmall?.color,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                text: 'Sign Up',
+                isOutline: true,
               ),
             ],
           ),

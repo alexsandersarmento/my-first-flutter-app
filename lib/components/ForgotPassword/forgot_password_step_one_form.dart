@@ -6,6 +6,7 @@ import 'package:my_first_flutter_app/components/animated_opacity_text_button.dar
 import 'package:my_first_flutter_app/locator.dart';
 import 'package:my_first_flutter_app/stores/auth_store.dart';
 import 'package:my_first_flutter_app/components/error_dialog.dart';
+import 'package:my_first_flutter_app/components/common/button.dart';
 
 class ForgotPasswordStepOneForm extends StatefulWidget {
   const ForgotPasswordStepOneForm({Key? key}) : super(key: key);
@@ -65,13 +66,7 @@ class _ForgotPasswordStepOneFormState extends State<ForgotPasswordStepOneForm> {
             child: ListenableBuilder(
               listenable: authStore,
               builder: (BuildContext context, Widget? child) {
-                return ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
+                return Button(
                   onPressed: () async {
                     final isFormValid = _checkFormValidation();
                     if (!isFormValid) {
@@ -86,11 +81,9 @@ class _ForgotPasswordStepOneFormState extends State<ForgotPasswordStepOneForm> {
                     final email = _emailController.text;
                     return authStore.forgotPassword(email, _onForgotPasswordSuccess, _onForgotPasswordError);
                   },
-                  child: authStore.isLoading ? const SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(color: AppColors.black)
-                  ) : const Text('Continue', style: TextStyle(color: AppColors.black)),
+                  text: 'Continue',
+                  isDisabled: authStore.isLoading,
+                  isLoading: authStore.isLoading,
                 );
               },
             ),

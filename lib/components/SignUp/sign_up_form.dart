@@ -4,6 +4,7 @@ import 'package:my_first_flutter_app/components/error_dialog.dart';
 import 'package:my_first_flutter_app/locator.dart';
 import 'package:my_first_flutter_app/stores/auth_store.dart';
 import 'package:my_first_flutter_app/components/custom_text_form_field.dart';
+import 'package:my_first_flutter_app/components/common/button.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -112,8 +113,7 @@ class _SignUpFormState extends State<SignUpForm> {
             child: ListenableBuilder(
               listenable: authStore,
               builder: (BuildContext context, Widget? child) {
-                return ElevatedButton(
-                  style: Theme.of(context).elevatedButtonTheme.style,
+                return Button(
                   onPressed: () async {
                     final isFormValid = _checkFormValidation();
                     if (!isFormValid) {
@@ -131,19 +131,9 @@ class _SignUpFormState extends State<SignUpForm> {
                           
                     return authStore.signUpUser(email, password, confirmPassword, _onSignUpSuccess, _onSignUpError);
                   },
-                  child: authStore.isLoading ? SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(
-                      color: Theme.of(context).textTheme.bodySmall?.backgroundColor
-                    ),
-                  ) : const Text(
-                    'Sign Up',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  text: 'Sign Up',
+                  isDisabled: authStore.isLoading,
+                  isLoading: authStore.isLoading,
                 );
               },
             ),

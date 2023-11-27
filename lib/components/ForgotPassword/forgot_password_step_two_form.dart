@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_first_flutter_app/components/common/button.dart';
 import 'package:my_first_flutter_app/core/theme/app_colors.dart';
 import 'package:my_first_flutter_app/components/animated_opacity_text_button.dart';
 import 'package:my_first_flutter_app/locator.dart';
@@ -19,25 +20,6 @@ class _ForgotPasswordStepTwoFormState extends State<ForgotPasswordStepTwoForm> {
 
   final authStore = locator<AuthStore>();
 
-  final defaultPinTheme = PinTheme(
-    width: 56,
-    height: 56,
-    textStyle: const TextStyle(
-      color: Colors.white,
-      fontSize: 24,
-      fontWeight: FontWeight.w500,
-    ),
-    decoration: BoxDecoration(
-      borderRadius: const BorderRadius.all(Radius.circular(8)),
-      border: Border.all(
-        color: Colors.white,
-        width: 1,
-      ),
-    ),
-    margin: const EdgeInsets.symmetric(horizontal: 10),
-  );
-
-
   void _onVerifyCodeSuccess() {
     GoRouter.of(context).push('/forgot-password-step-three');
   }
@@ -52,20 +34,44 @@ class _ForgotPasswordStepTwoFormState extends State<ForgotPasswordStepTwoForm> {
     authStore.verifyCode(value, _onVerifyCodeSuccess, _onVerifyCodeError);
   }
 
+  PinTheme buildPinTheme(BuildContext context) {
+    return PinTheme(
+      width: 56,
+      height: 56,
+      textStyle: Theme.of(context).textTheme.headlineSmall!.copyWith(
+        fontWeight: FontWeight.w500,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.secondary,
+          width: 1,
+        ),
+      ),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Pinput(
           controller: pinController,
-          defaultPinTheme: defaultPinTheme,
+          defaultPinTheme: buildPinTheme(context),
           onChanged: (value) {
             setState(() {
               isCodeInvalid = false;
             });
           },
-          errorPinTheme: defaultPinTheme.copyBorderWith(
-            border: Border.all(color: Colors.redAccent),
+          errorPinTheme: buildPinTheme(context).copyWith(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              border: Border.all(
+                color: Theme.of(context).colorScheme.error,
+                width: 1,
+              ),
+            ),
           ),
           forceErrorState: isCodeInvalid,
           errorText: 'Invalid code',
@@ -76,20 +82,16 @@ class _ForgotPasswordStepTwoFormState extends State<ForgotPasswordStepTwoForm> {
           children: [
             Text(
               'Didn\'t receive the code? ',
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.w100,
-                fontSize: 16,
+              style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                fontWeight: FontWeight.w300,
               ),
             ),
             AnimatedOpacityTextButton(
               onTap: () {},
               child: Text(
                 'Resend',
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: Colors.white,
+                style: Theme.of(context).textTheme.labelSmall!.copyWith(
                   fontWeight: FontWeight.w500,
-                  fontSize: 16,
                   decoration: TextDecoration.underline,
                 ),
               ),
@@ -103,21 +105,13 @@ class _ForgotPasswordStepTwoFormState extends State<ForgotPasswordStepTwoForm> {
           child: ListenableBuilder(
             listenable: authStore,
             builder: (BuildContext context, Widget? child) {
-              return ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
+              return Button(
                 onPressed: () {
                   _onVerifyCode(pinController.text);
                 },
-                child: authStore.isLoading ? const SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(color: AppColors.black)
-                ) : const Text('Verify', style: TextStyle(color: AppColors.black)),
+                text: 'Verify',
+                isDisabled: authStore.isLoading,
+                isLoading: authStore.isLoading,
               );
             },
           ),

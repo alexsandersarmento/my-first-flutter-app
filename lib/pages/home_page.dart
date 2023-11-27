@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           ),
         ),
       ),
-      body: const Timeline(),
+      // body: const Timeline(),
     );
   }
 
