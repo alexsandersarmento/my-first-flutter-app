@@ -5,6 +5,7 @@ import 'package:my_first_flutter_app/pages/products_page.dart';
 import 'package:my_first_flutter_app/pages/profile_page.dart';
 import 'package:my_first_flutter_app/components/HomeScreen/custom_navigation_destination.dart';
 import 'package:my_first_flutter_app/components/HomeScreen/drawer.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,11 +14,17 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  int currentPageIndex = 0; 
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+  int currentPageIndex = 0;
+  TabController? _tabController;
 
   @override
   void initState() {
+    _tabController = TabController(
+      length: 4,
+      initialIndex: currentPageIndex,
+      vsync: this,
+    );
     super.initState();
   }
 
@@ -25,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return ThemeSwitchingArea(
       child: Scaffold(
+        extendBody: true,
         drawer: const CustomDrawer(),
         body: IndexedStack(
           index: currentPageIndex,
@@ -32,56 +40,69 @@ class _HomeScreenState extends State<HomeScreen> {
             HomePage(),
             ProductsPage(),
             ProfilePage(),
+            ProfilePage(),
           ],
         ),
-        bottomNavigationBar: NavigationBar(
-          elevation: 1,
-          indicatorColor: Colors.transparent,
-          onDestinationSelected: (int index) {
-            setState(() {
-              currentPageIndex = index;
-            });
-          },
-          selectedIndex: currentPageIndex,
-          destinations: <Widget>[
-            CustomNavigationDestination(
-              activeColor: Colors.white,
-              color: Colors.grey,
-              icon: const Icon(Icons.home_outlined),
-              label: 'Home',
-              selected: currentPageIndex == 0,
-              onTap: () => {
-                setState(() {
-                  currentPageIndex = 0;
-                })
-              },
+        bottomNavigationBar: Container(
+          margin: const EdgeInsets.only(bottom: 30, left: 20, right: 20),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100),
+            color: Colors.white,
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 10,
+                offset: Offset(0, -1),
+              ),
+            ],
+          ),
+          child: TabBar(
+            indicator: const BoxDecoration(
+              color: Colors.transparent,
             ),
-            CustomNavigationDestination(
-              icon: const Icon(Icons.business_outlined),
-              activeColor: Colors.white,
-              color: Colors.grey,
-              label: 'Products',
-              selected: currentPageIndex == 1,
-              onTap: () => {
-                setState(() {
-                  currentPageIndex = 1;
-                })
-              },
-            ),
-            CustomNavigationDestination(
-              icon: const Icon(Icons.school_outlined),
-              activeColor: Colors.white,
-              color: Colors.grey,
-              label: 'Profile',
-              selected: currentPageIndex == 2,
-              onTap: () => {
-                setState(() {
-                  currentPageIndex = 2;
-                })
-              },
-            ),
-          ],
-        ),
+            onTap: (index) {
+              setState(() {
+                currentPageIndex = index;
+              });
+            },
+            tabs: const [
+              Tab(
+                child: CustomNavigationDestination(
+                  icon: Icon(Icons.sports_kabaddi, color: Colors.black),
+                  label: 'Evolução',
+                  activeColor: Colors.blue,
+                  color: Colors.black,
+                ),
+              ),
+              Tab(
+                child: CustomNavigationDestination(
+                  icon: Icon(Symbols.calendar_add_on, color: Colors.black),
+                  label: 'Agendar',
+                  activeColor: Colors.blue,
+                  color: Colors.black,
+                ),
+              ),
+              Tab(
+                child: CustomNavigationDestination(
+                  icon: Icon(Icons.attach_money, color: Colors.black),
+                  label: 'Débitos',
+                  activeColor: Colors.blue,
+                  color: Colors.black,
+                ),
+              ),
+              Tab(
+                child: CustomNavigationDestination(
+                  icon: Icon(Icons.person_outline, color: Colors.black),
+                  label: 'Perfil',
+                  activeColor: Colors.blue,
+                  color: Colors.black,
+                ),
+              ),
+            ],
+            controller: _tabController,
+          ),
+        )
       ),
     );
   }

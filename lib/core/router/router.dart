@@ -54,7 +54,7 @@ class Router {
         pageBuilder: (context, state) => buildPageWithDefaultTransition(
           context: context,
           state: state,
-          child: const OnboardPage(),
+          child: const HomeScreen(),
         ),
         routes: <RouteBase>[
           GoRoute(

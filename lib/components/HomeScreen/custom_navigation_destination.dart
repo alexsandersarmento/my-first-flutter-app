@@ -5,9 +5,6 @@ class CustomNavigationDestination extends StatefulWidget {
   final String label;
   final Color color;
   final Color activeColor;
-  final bool selected;
-  final double size;
-  final VoidCallback onTap;
 
   const CustomNavigationDestination({
     Key? key,
@@ -15,9 +12,6 @@ class CustomNavigationDestination extends StatefulWidget {
     required this.label,
     required this.color,
     required this.activeColor,
-    required this.selected,
-    required this.onTap,
-    this.size = 56
   }) : super(key: key);
 
   @override
@@ -33,27 +27,19 @@ class _CustomNavigationDestinationState extends State<CustomNavigationDestinatio
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: widget.size,
-      child: InkWell(
-        onTap: () {
-          widget.onTap();
-        },
-        highlightColor: Colors.transparent,
-        splashColor: Colors.transparent,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            widget.icon,
-            Text(
-              widget.label,
-              style: TextStyle(
-                color: widget.selected ? Theme.of(context).textTheme.bodySmall?.color : widget.color,
-              ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          widget.icon,
+          Text(
+            widget.label,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: widget.color,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

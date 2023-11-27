@@ -8,12 +8,14 @@ environment:
 
 dependencies:
   animated_theme_switcher: ^2.0.8
+  dot_navigation_bar: ^1.0.2
   flutter:
     sdk: flutter
   get_it: ^7.6.4
   go_router: ^12.1.1
   google_fonts: ^6.1.0
   http: ^1.1.0
+  material_symbols_icons: ^4.2711.0
   pinput: ^3.0.1
   provider: ^6.1.1
   shared_preferences: ^2.2.2
